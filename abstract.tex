@@ -1,0 +1,23 @@
+RBO is a protocol for a powerful sender and tiny (battery powered) receivers.
+The sender repeatedly broadcasts a sequence of many (possibly millions) of messages,
+while each receiver is interested in reception of a specific message within this
+sequence.
+The transmission is arranged so that the receiver can wake up in arbitrary moment and find
+ the nearest transmission of its searched message.  
+Even if it does not know the position of the message in the sequence,
+it needs only
+to receive a small number of other messages to locate it properly.
+Thus it can save energy by keeping the radio switched off most of the time.
+We show that bit-reversal permutation has ``recursive bisection properties''
+and, as a consequence,
+RBO can be implemented very efficiently 
+with only constant number of $\lceil\log_2 n\rceil$-bit variables,
+where $n$ is the total number of messages in the sequence. 
+The total time of required receptions is $O(\log n)$
+(at most $2\lceil\log_2 n\rceil+3$ in the model with perfect synchronization).
+The basic procedure of RBO 
+(computation of the time slot for the next required reception)
+requires only $O(\log^3 n)$ bit-wise operations.
+We propose implementation mechanisms 
+for realistic model (with imperfect synchronization),
+for operating systems (such as e.g. TinyOS).
