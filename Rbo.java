@@ -304,4 +304,39 @@ public class Rbo{
     public static int totalNSI=0;
 
 
+// decompositions
+
+public static int l(int k, int s, int i)
+{
+int l1=0;
+int s1=1;
+while((s&s1)==0 && l1<k){
+  s1=s1<<1;
+  l1++;
+  }
+if(i==0) return l1;
+else return l(k, s+s1, i-1);
+}
+
+public static int minY(int k, int s, int i)
+{
+if(i==0) return s;
+// else
+s=s+(1<<l(k,s,0));
+return minY(k, s, i-1);
+} 
+
+
+/// main for  tests
+
+public static void main(String[] args)
+{
+// test decompositions
+int k=5;
+int s=12;
+for(int i=0; i<5; i++){
+  System.out.println("minY("+k+","+s+","+i+")="+Rbo.minY(k,s,i) );
+  System.out.println("l("+k+","+s+","+i+")="+Rbo.l(k,s,i) );
+  }
+}
 }
