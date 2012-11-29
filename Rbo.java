@@ -236,6 +236,43 @@ public class Rbo{
 	return revBits(k, x1);
     }
 
+    public static int nsi(int k, int t, int r1, int r2) // new version for arbitrary t (not modulo 2^k)
+    // (t+min{d>0 : r1<= revBits( (t+d)mod 2^k   ) <=r2}) mod 2^k 
+    // we assume 0<=r1<=r2< 2^k 
+
+    {
+        int twoToK=(1<<k); // 2^k
+	int modMaskK= twoToK-1; // 2^k-1
+        int t1,x1,x2, stepDivMask; 
+	int twoToL=1;
+	int stepLMinusOne=modMaskK;
+	// int tNext=((t+1)&modMaskK); 
+	int tNext= t+1; 
+        do 
+	    {
+                t1=tNext; 
+		while(twoToL<twoToK && (t1&twoToL)==0) 
+		    {
+			twoToL=twoToL<<1;
+                        stepLMinusOne=stepLMinusOne>>1;
+		    }
+                // tNext=((t1+twoToL)&modMaskK);
+                tNext= t1+twoToL;
+                stepDivMask=((~stepLMinusOne) & modMaskK);
+		x1=revBits(k,t1);
+                x2= (x1 | stepDivMask );
+	    }while( r1>x2 || r2<x1 || ((r1-x1+stepLMinusOne)&stepDivMask)>((r2-x1)&stepDivMask) ); 
+	int s= (twoToK>>1); // 2^(k-1)
+        while(x1<r1 || x1>r2)
+	    {
+
+		if(x1<r1) x1=x1+s;
+		else x1=x1-s;
+		s=s/2;
+	    }
+	return (t1&(~modMaskK))+revBits(k, x1);
+    }
+
 
     public static int naiveNextSlotIn(int k, int t, int r1, int r2)
     // (t+min{d>0 : r1<= revBits( (t+d)mod 2^k   ) <=r2}) mod 2^k 
@@ -331,7 +368,8 @@ return minY(k, s, i-1);
 
 public static void main(String[] args)
 {
-// test decompositions
+{
+System.out.println("test decompositions:");
 int k=5;
 int s=12;
 for(int i=0; i<5; i++){
@@ -339,4 +377,16 @@ for(int i=0; i<5; i++){
   System.out.println("l("+k+","+s+","+i+")="+Rbo.l(k,s,i) );
   }
 }
+{
+System.out.println("test nsi");
+int k=5;
+int t=17;
+int r1=16;
+int r2=17;
+System.out.println("nsi("+k+","+t+","+r1+","+r2+")="+Rbo.nsi(k,t,r1,r2));
+}
+}
+
+
+
 }
