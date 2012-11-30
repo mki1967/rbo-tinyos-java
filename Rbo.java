@@ -438,16 +438,18 @@ for(int i=0; i<5; i++){
   System.out.println("l("+k+","+s+","+i+")="+Rbo.l(k,s,i) );
   }
 }
+*/
+
 {
 System.out.println("test nsi");
 int k=5;
-int t=17;
-int r1=16;
-int r2=17;
+int t=6;
+int r1=7;
+int r2=9;
 System.out.println("nsi("+k+","+t+","+r1+","+r2+")="+Rbo.nsi(k,t,r1,r2));
 }
-*/
 
+/*
 {
 int k=5;
 int s=12;
@@ -459,7 +461,7 @@ for(int i=0; i<edges.length; i++)
   System.out.println( "[("+Rbo.revBits(k,edges[i][0])+","+edges[i][0]+"),("+Rbo.revBits(k,edges[i][1])+","+edges[i][1]+")]");
 
 }
-
+*/
 
 }
 
