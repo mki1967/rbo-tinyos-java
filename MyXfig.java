@@ -356,6 +356,27 @@ public class MyXfig extends Rbo{
 	graph(y);
     }
 
+    static void drawEdgesY(int k, int[][] edgesY)
+    {
+    for(int i=0; i<edgesY.length; i++)
+       line( revBits(k,edgesY[i][0]), edgesY[i][0],revBits(k,edgesY[i][1]), edgesY[i][1]); 
+    }
+
+    
+    static void treeDecopmositions(int k,int s)
+    {
+
+    revBitsGraph2(k); // header and grid
+
+    int lst=last(k,s);
+    for(int i=0; i<=lst; i++)
+       {
+       int s1=minY(k,s,i);
+       int[][] edgesY=edgesOfTreeY(k,s1);
+       drawEdgesY(k, edgesY);
+       }
+    }
+
 
     public static void main(String[] args)
     {
@@ -385,10 +406,10 @@ public class MyXfig extends Rbo{
 	*/
 	int k=  Integer.valueOf(args[0]);
 	int t0=  Integer.valueOf(args[1]);
-
+        treeDecopmositions(k,t0);
         // leftTrajectory(k,t0, Integer.valueOf(args[2]));// args[2] - granica
 	// trajectories(k, Integer.valueOf(args[1]));// args[1] - granica
-        trajectoriesT(k, Integer.valueOf(args[1]));// args[1] - t0
+        // trajectoriesT(k, Integer.valueOf(args[1]));// args[1] - t0
 	// revBitsGraphTrace(k);
 	// revBitsGraphShiftedUp(k, t0);
 	// revBitsGraph(k);

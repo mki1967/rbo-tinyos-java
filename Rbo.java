@@ -345,6 +345,7 @@ public class Rbo{
 
 public static int l(int k, int s, int i)
 {
+
 int l1=0;
 int s1=1;
 while((s&s1)==0 && l1<k){
@@ -352,7 +353,21 @@ while((s&s1)==0 && l1<k){
   l1++;
   }
 if(i==0) return l1;
-else return l(k, s+s1, i-1);
+// else recursion
+return l(k, s+s1, i-1);
+
+}
+
+public static int last(int k, int s)
+{
+int i=0;
+int l1=l(k,s,i);
+while(l1<k)
+  {
+  i++;
+  l1=l(k,s,i);
+  }
+return i;
 }
 
 public static int minY(int k, int s, int i)
@@ -364,10 +379,56 @@ return minY(k, s, i-1);
 } 
 
 
+public static int lChildY(int k, int l, int y)
+// 2^k - length of broadcast cycle, l - level of y in its tree
+{
+int x=revBits(k,y);
+return (y&(~((1<<k)-1)))+revBits(k, x-(1<<(k-l-1)));
+// return  floor(y/2^k)*2^k+rev(k, x-2^(k-l-1))
+}
+
+public static int rChildY(int k, int l, int y)
+// 2^k - length of broadcast cycle, l - level of y in its tree
+{
+int x=revBits(k,y);
+return (y&(~((1<<k)-1)))+revBits(k, x+(1<<(k-l-1)));
+// return  floor(y/2^k)*2^k+rev(k, x+2^(k-l-1))
+}
+
+
+public static int[][] edgesOfTreeY(int k,int s)
+// levels of Y_0 tree, when starting in s
+{
+int l0=l(k,s,0);
+int nrOfEdges=(1<<l0)-1; // 2^l0-1
+int[][] edges=new int[nrOfEdges][];
+if(nrOfEdges==0) return edges; // one node - no edges
+edges[0]=new int[2];
+edges[0][0]=s;
+edges[0][1]=rChildY(k,0,s); // edge between root and its only child
+// edges[0][1]=s+1; // edge between root and its only child
+
+int maxParent=minY(k,s,1)-(1<<(l0-1))-1; // y-index of the last parent is max Y_0-2^l_0-1
+int lv=0; // index of the current level
+for(int i=s+1; i<=maxParent; i++)
+   {
+   int j=i-s;
+   if(j >= (1<<lv) ) lv++; // y-coordinates on level lv are s+2^(lv-1) ... s+2^lv-1
+   edges[2*j-1]=new int[2];
+   edges[2*j]=new int[2];
+   edges[2*j-1][0]=edges[2*j][0]=i; // parent
+   edges[2*j-1][1]=lChildY(k,lv,i);
+   edges[2*j][1]=rChildY(k,lv,i);
+   } 
+return edges;
+}
+
+
 /// main for  tests
 
 public static void main(String[] args)
 {
+/*
 {
 System.out.println("test decompositions:");
 int k=5;
@@ -385,6 +446,21 @@ int r1=16;
 int r2=17;
 System.out.println("nsi("+k+","+t+","+r1+","+r2+")="+Rbo.nsi(k,t,r1,r2));
 }
+*/
+
+{
+int k=5;
+int s=12;
+
+System.out.println("test edgesOfTreeY("+k+","+ s+")");
+
+int edges[][]=edgesOfTreeY(k,s);
+for(int i=0; i<edges.length; i++)
+  System.out.println( "[("+Rbo.revBits(k,edges[i][0])+","+edges[i][0]+"),("+Rbo.revBits(k,edges[i][1])+","+edges[i][1]+")]");
+
+}
+
+
 }
 
 
