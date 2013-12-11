@@ -3,7 +3,7 @@ Programs in Java for testing and simulations of RBO.
 RBO is a simple and robust broadcast-scheduling protocol minimizing
 'tuning-time/energy' of the receiver.
 It's idea is based on an interesting property of the bit-reversal permutation.
-The broadcast cycle is a sorted sequence keys of length 2^k and permuted by k-bit-reversal
+The broadcast cycle is a sorted sequence of keys of length 2^k, permuted by k-bit-reversal
 permutation. 
 The bradcast cycle is broacast in 'round-robin' fasion by the sender.
 The receiver wants to receive some key from the broadcast cycle.
