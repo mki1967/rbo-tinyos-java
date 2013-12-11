@@ -43,7 +43,7 @@ and
   timeSlotLength is the time between transmissions of consecutive elements
    (in milliseconds) 
 This program creates two windows: for the sender and for the receiver. 
-(Note that, initially, one window may be covered by the other. Use the mouse to relocate them.)
+(* Note that, initially, one window may be covered by the other. Use the mouse to relocate them. *)
 The keys in the sequence broadcast by the sender are consecutive positive 
 odd numbers (starting from 1),
 while the receiver selects as the searched key a random integer
@@ -69,6 +69,9 @@ sequence transmission.
 
 The time in statistics is given in milliseconds.
 
+(* Note that it is 'real-time' simulation. 
+Hence, the time intervals between subsequent messages 
+may be quite long for large broadcast cycles. *)
 
 
 --
