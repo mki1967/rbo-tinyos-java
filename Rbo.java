@@ -94,6 +94,7 @@ public class Rbo{
     }
 
 
+/* Obsolete version of NSI algorithm. (Do not use!) */
 
     public static int plogNextSlotIn(int k, int t, int r1, int r2)
     // (t+min{d>0 : r1<= revBits( (t+d)mod 2^k   ) <=r2}) mod 2^k 
@@ -198,9 +199,11 @@ public class Rbo{
 		r2=maxL;
 	    }
     }
-
-
+/*   */
     
+
+/* the better version of NSI algorithm from http://arxiv.org/abs/1201.3318 (used in simulation) */
+
     public static int nextIn(int k, int t, int r1, int r2) // new version
     // (t+min{d>0 : r1<= revBits( (t+d)mod 2^k   ) <=r2}) mod 2^k 
     // we assume 0<=r1<=r2< 2^k 
@@ -274,6 +277,8 @@ public class Rbo{
     }
 
 
+/* we do not use "naive" and "reverse "  NSI in the simmulation, since the new NSI is efficient */
+
     public static int naiveNextSlotIn(int k, int t, int r1, int r2)
     // (t+min{d>0 : r1<= revBits( (t+d)mod 2^k   ) <=r2}) mod 2^k 
     // we assume 0<=r1<=r2< 2^k 
@@ -314,6 +319,10 @@ public class Rbo{
 
     }
 
+
+
+/* we do not use "naive" and "reverse "  NSI now, since the new NSI is efficient
+
     public static int nextSlotIn(int k, int t, int r1, int r2)
     // (t+min{d>0 : r1<= revBits( (t+d)mod 2^k   ) <=r2}) mod 2^k 
     // we assume 0<=r1<=r2< 2^k 
@@ -331,6 +340,18 @@ public class Rbo{
 	else
 	    // return plogNextSlotIn(k,t,r1,r2);
 	    return nextIn(k,t,r1,r2);
+    }
+
+*/
+
+    public static int nextSlotIn(int k, int t, int r1, int r2)
+    // (t+min{d>0 : r1<= revBits( (t+d)mod 2^k   ) <=r2}) mod 2^k 
+    // we assume 0<=r1<=r2< 2^k 
+    {
+	totalNSI++; // for statistics
+
+	if(r1==r2) return revBits(k,r1); // nothing to compute
+	else    return nextIn(k,t,r1,r2);
     }
 
 

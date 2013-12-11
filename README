@@ -1,5 +1,15 @@
+Programs in Java for testing and simulations of RBO.
+
+RBO is a simple and robust broadcast-scheduling protocol minimizing
+'tuning-time/energy' of the receiver.
+Informal description of the protocol with references to the technical reports
+can be found at: 
+    https://sites.google.com/site/rboprotocol/
+
+
 This directory contains a prototype of 
-the RBO protocol with a simple test application.
+the RBO protocol with a simple test application (and some other code in Java used for testing RBO).
+
 
 The files Rbo*.java contain implementation of the modules
 of the protocol.
@@ -30,15 +40,16 @@ where
    logSequenceLength is logarithm of the length of the transmitted sequence
    (here it should be less than 30 - we are using Java type int)
 and 
-  timeSlotLength is the time between transmisions of consecutive elements
+  timeSlotLength is the time between transmissions of consecutive elements
    (in milliseconds) 
-This program creates two windows (for the sender and for the receiver).
+This program creates two windows: for the sender and for the receiver. 
+(Note that, initially, one window may be covered by the other. Use the mouse to relocate them.)
 The keys in the sequence broadcast by the sender are consecutive positive 
 odd numbers (starting from 1),
 while the receiver selects as the searched key a random integer
-between 0 and 1+(maximum of the broacast sequence).
+between 0 and 1+(maximum of the broadcast sequence).
 There is also simple menu in the terminal for printing statistics
-and stoping/restarting the receiver/sender.
+and stopping/restarting the receiver/sender.
 
 The messages in the receivers' window are printed after completion of each search.
 They look like this:
@@ -62,4 +73,8 @@ The time in statistics is given in milliseconds.
 
 --
 
-The author can be reached at: Marcin.Kik@pwr.wroc.pl
+The author can be reached at: 
+    Marcin.Kik@pwr.wroc.pl
+or
+    mki1967@gmail.com
+

@@ -113,11 +113,11 @@ public class TestApplication{
 
     public static void printStatistics(TestReceiver receiver, TestSender sender)
     {
-	System.out.println("NSI: "
+	System.out.println("NSI usage: "
 			   +" total: "+Rbo.totalNSI
-			   +"; naive: "+Rbo.naiveNSI
-			   +"; plog: "+Rbo.plogNSI
-			   +"; reverse: "+Rbo.reverseNSI
+			   // +"; naive: "+Rbo.naiveNSI
+			   // +"; plog: "+Rbo.plogNSI
+			   // +"; reverse: "+Rbo.reverseNSI
 			   );
 	System.out.println("Total time: " +(System.currentTimeMillis()-startTime));
 	System.out.println("Total Radio ON: "+receiver.rboReceiver.splitControl.totalTimeOn); 
