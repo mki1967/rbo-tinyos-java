@@ -5,7 +5,7 @@ RBO is a simple and robust broadcast-scheduling protocol minimizing
 It's idea is based on an interesting property of the bit-reversal permutation.
 The broadcast cycle is a sorted sequence of keys of length 2^k, permuted by k-bit-reversal
 permutation. 
-The bradcast cycle is broacast in 'round-robin' fasion by the sender.
+The broadcast cycle is broadcast in 'round-robin' fashion by the sender.
 The receiver wants to receive some key from the broadcast cycle.
 It uses a simple RBO protocol that listens to some samples of the broadcast cycle.
 It may start at any time during the broadcasting and, due to the properties of bit-reversal,
