@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>Rbo-tinyos-java by mki1967</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">Rbo-tinyos-java</h1>
+      <h2 class="project-tagline"></h2>
+      <a href="https://github.com/mki1967/rbo-tinyos-java" class="btn">View on GitHub</a>
+      <a href="https://github.com/mki1967/rbo-tinyos-java/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/mki1967/rbo-tinyos-java/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
+
+    <section class="main-content">
+      <h1>
+<a id="programs-in-java-for-testing-and-simulations-of-rbo" class="anchor" href="#programs-in-java-for-testing-and-simulations-of-rbo" aria-hidden="true"><span class="octicon octicon-link"></span></a>Programs in Java for testing and simulations of RBO.</h1>
+
+<p>RBO is a simple and robust broadcast-scheduling protocol minimizing
+'tuning-time/energy' of the receiver.
+It's idea is based on an interesting property of the bit-reversal permutation.
+The broadcast cycle is a sorted sequence of keys of length 2^k, permuted by k-bit-reversal
+permutation. 
+The broadcast cycle is broadcast in 'round-robin' fashion by the sender.
+The receiver wants to receive some key from the broadcast cycle.
+It uses a simple RBO protocol that listens to some samples of the broadcast cycle.
+It may start at any time during the broadcasting and, due to the properties of bit-reversal,
+the number of samples to be received is very low, thus saving the energy consumed
+by the radio receptions.</p>
+
+<p>Informal description of the protocol with references to the technical reports
+can be found at: 
+    <a href="https://sites.google.com/site/rboprotocol/">https://sites.google.com/site/rboprotocol/</a></p>
+
+<p>This directory contains a prototype of 
+the RBO protocol with a simple test application (and some other code in Java used for testing RBO).</p>
+
+<p>The files Rbo*.java contain implementation of the modules
+of the protocol.</p>
+
+<p>The files Tiny*.java contain emulations of the TinyOS 
+components used by RBO.</p>
+
+<p>The files *Events.java are specifications (parts of module's interfaces) 
+of the events signalled by the corresponding modules.</p>
+
+<p>To compile the programs run in this directory:</p>
+
+<p>javac *.java</p>
+
+<h2>
+<a id="simple-test-application" class="anchor" href="#simple-test-application" aria-hidden="true"><span class="octicon octicon-link"></span></a>SIMPLE TEST APPLICATION:</h2>
+
+<p>To start simple test application of the protocol run:</p>
+
+<p>java TestApplication logSequenceLength timeSlotLength</p>
+
+<p>where 
+   logSequenceLength is logarithm of the length of the transmitted sequence
+   (here it should be less than 30 - we are using Java type int)
+and 
+  timeSlotLength is the time between transmissions of consecutive elements
+   (in milliseconds) 
+This program creates two windows: for the sender and for the receiver. 
+(* Note that, initially, one window may be covered by the other. Use the mouse to relocate them. *)
+The keys in the sequence broadcast by the sender are consecutive positive 
+odd numbers (starting from 1),
+while the receiver selects as the searched key a random integer
+between 0 and 1+(maximum of the broadcast sequence).
+There is also simple menu in the terminal for printing statistics
+and stopping/restarting the receiver/sender.</p>
+
+<p>The messages in the receivers' window are printed after completion of each search.
+They look like this:</p>
+
+<p>50.searchDone: ERR:2 MSG: H:ID=2 LSL=13 TSL=2 KEY=15769 RNK=7884 P:7884</p>
+
+<p>ERR - status of the result ( 0 - SUCCESS, 1 - TIME_OUT, 2 - KEY_NOT_PRESENT)
+ID -  sequence ID
+LSL - logarithm of sequence length
+TSL - time of sequence length
+KEY - the key in last received message
+RNK - rank of the key
+P   - payload</p>
+
+<p>The messages in the senders' window are printed after each round of 
+sequence transmission.</p>
+
+<p>The time in statistics is given in milliseconds.</p>
+
+<p>(* Note that it is 'real-time' simulation. 
+Hence, the time intervals between subsequent messages 
+may be quite long for large broadcast cycles. *)</p>
+
+<h2></h2>
+
+<p>The author can be reached at: 
+    <a href="mailto:Marcin.Kik@pwr.wroc.pl">Marcin.Kik@pwr.wroc.pl</a>
+or
+    <a href="mailto:mki1967@gmail.com">mki1967@gmail.com</a></p>
+
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/mki1967/rbo-tinyos-java">Rbo-tinyos-java</a> is maintained by <a href="https://github.com/mki1967">mki1967</a>.</span>
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+      </footer>
+
+    </section>
+
+  
+  </body>
+</html>
